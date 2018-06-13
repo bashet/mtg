@@ -15,6 +15,10 @@ require('chosen-npm/public/chosen.jquery.min.js');
 require('jquery-validation');
 require('bootstrap-checkbox');
 require('bootstrap-datepicker');
+require('@fortawesome/fontawesome');
+require('@fortawesome/fontawesome-free-regular');
+require('@fortawesome/fontawesome-free-solid');
+require('@fortawesome/fontawesome-free-brands');
 
 window.Vue = require('vue');
 
@@ -29,3 +33,6 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
 const app = new Vue({
     el: '#app'
 });
+
+let token = document.head.querySelector('meta[name="csrf-token"]');
+window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
