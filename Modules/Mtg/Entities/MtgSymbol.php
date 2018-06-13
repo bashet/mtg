@@ -8,5 +8,4 @@ class MtgSymbol extends Model
 {
     protected $fillable = [];
 
-    protected $table = 'symbol';
 }

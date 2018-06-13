@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class MtgCard extends Model
 {
-    protected $fillable = [];
+    //protected $fillable = ['front', 'back', 'rarity', 'Artist', 'cardBorder', 'cardColourIdentity'];
 
-    protected $table = 'card';
 }

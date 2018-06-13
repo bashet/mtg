@@ -8,5 +8,4 @@ class MtgCardOwned extends Model
 {
     protected $fillable = [];
 
-    protected $table = 'cardowned';
 }

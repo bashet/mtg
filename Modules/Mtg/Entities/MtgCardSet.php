@@ -8,6 +8,5 @@ class MtgCardSet extends Model
 {
     protected $fillable = [];
 
-    protected $table = 'cardset';
 
 }

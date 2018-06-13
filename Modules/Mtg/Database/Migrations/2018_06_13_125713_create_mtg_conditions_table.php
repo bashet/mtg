@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMtgCondiionsTable extends Migration
+class CreateMtgConditionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateMtgCondiionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('mtg_condiions', function (Blueprint $table) {
+        Schema::create('mtg_conditions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('grade');
             $table->string('name');
@@ -31,6 +31,6 @@ class CreateMtgCondiionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mtg_condiions');
+        Schema::dropIfExists('mtg_conditions');
     }
 }
