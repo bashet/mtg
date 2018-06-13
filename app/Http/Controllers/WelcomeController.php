@@ -17,6 +17,11 @@ class WelcomeController extends Controller
             ->get();
 
         $data['sets'] = $sets;
+
+        $first_set = $sets->first();
+        $cards = $first_set->cards;
+        $data['cards'] = $cards;
+
         return view('welcome', $data);
     }
 }
