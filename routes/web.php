@@ -51,3 +51,5 @@ Route::get('verify/{token?}', function ($token=''){
 
     return view('verify');
 });
+
+Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');

@@ -27,7 +27,6 @@ class LogRegisteredUser
      */
     public function handle(Registered $event)
     {
-        //logger()->info(json_encode(['event' => $event]));
 
         $user = $event->user;
 

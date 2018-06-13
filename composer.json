@@ -10,7 +10,9 @@
         "laracasts/flash": "^3.0",
         "laravel/framework": "5.6.*",
         "laravel/tinker": "^1.0",
-        "spatie/laravel-activitylog": "^2.5"
+        "rap2hpoutre/laravel-log-viewer": "^0.15.0",
+        "spatie/laravel-activitylog": "^2.5",
+        "uxweb/sweet-alert": "^1.4"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.4",
