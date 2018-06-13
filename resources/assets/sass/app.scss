@@ -1,12 +1,16 @@
 
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import url("//cdn.jsdelivr.net/npm/keyrune@latest/css/keyrune.css");
 
 // Variables
 @import "variables";
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+@import "~bootstrap4c-chosen/dist/css/component-chosen.min.css";
+
+
 @import "../css/global.css";
 
 .navbar-laravel {

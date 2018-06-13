@@ -11,7 +11,7 @@ window.moment = require('moment');
 window.swal = require('sweetalert2');
 require('jquery-form');
 require('gasparesganga-jquery-loading-overlay');
-require('chosen-npm/public/chosen.jquery.min.js');
+require('chosen-js');
 require('jquery-validation');
 require('bootstrap-checkbox');
 require('bootstrap-datepicker');
