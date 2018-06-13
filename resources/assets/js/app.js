@@ -20,7 +20,8 @@ require('@fortawesome/fontawesome-free-regular');
 require('@fortawesome/fontawesome-free-solid');
 require('@fortawesome/fontawesome-free-brands');
 
-window.Vue = require('vue');
+
+// window.Vue = require('vue');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -28,11 +29,11 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+// Vue.component('example-component', require('./components/ExampleComponent.vue'));
+//
+// const app = new Vue({
+//     el: '#app'
+// });
 
-const app = new Vue({
-    el: '#app'
-});
-
-let token = document.head.querySelector('meta[name="csrf-token"]');
-window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+// let token = document.head.querySelector('meta[name="csrf-token"]');
+// window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;

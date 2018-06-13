@@ -5,20 +5,20 @@ $(function () {
 
     $('.switch').checkboxpicker();
 
-    // $('#users').DataTable({
-    //      responsive: true,
-    //      "columnDefs": [
-    //          {
-    //              "targets": [4,5],
-    //              "orderable": false
-    //          }
-    //      ],
-    //     lengthMenu: [
-    //         [ 10, 25, 50, 100, -1 ],
-    //         [ '10', '25', '50', '100', 'All' ]
-    //     ],
-    //     "autoWidth" : true
-    // });
+    $('#users').DataTable({
+         responsive: true,
+         "columnDefs": [
+             {
+                 "targets": [4,5],
+                 "orderable": false
+             }
+         ],
+        lengthMenu: [
+            [ 10, 25, 50, 100, -1 ],
+            [ '10', '25', '50', '100', 'All' ]
+        ],
+        "autoWidth" : true
+    });
 
     $('#users').on('click','.delete_user', function (e) {
         e.preventDefault();

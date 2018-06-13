@@ -1,6 +1,11 @@
 @extends('user::layouts.master')
 
+@push('style')
+    <link href="{{ asset('plugins/DataTables/datatables.min.css') }}" rel="stylesheet">
+@endpush
+
 @push('scripts')
+    <script src="{{url('plugins/DataTables/datatables.min.js')}}"></script>
     <script type="application/javascript" src="{{url(Module::asset('user:js/index.js'))}}"></script>
 @endpush
 @section('breadcrumb-item')
@@ -42,7 +47,7 @@
                                     <td class="text-center">{{$i++}}</td>
                                     <td><a href="{{url('user/view/'.$user->id)}}">{{$user->name}}</a></td>
                                     <td><a href="{{url('user/view/'.$user->id)}}">{{$user->email}}</a></td>
-                                    <td class="text-center">{{$user->roleAll()->implode(', ')}}</td>
+                                    <td class="text-center">{{title_case($user->roleAll()->implode(', '))}}</td>
                                     <td class="text-center has-checkbox">
                                         @if($user->id != Auth::id())
                                             @can('change_user_status', $user)
