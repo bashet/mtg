@@ -1,0 +1,16 @@
+{
+    "name": "Mtg",
+    "alias": "mtg",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Mtg\\Providers\\MtgServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}
