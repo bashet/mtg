@@ -7,4 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class MtgSymbol extends Model
 {
     protected $fillable = [];
+
+    protected $table = 'symbol';
 }
