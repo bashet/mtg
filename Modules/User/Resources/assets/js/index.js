@@ -17,7 +17,10 @@ $(function () {
             [ 10, 25, 50, 100, -1 ],
             [ '10', '25', '50', '100', 'All' ]
         ],
-        "autoWidth" : true
+        "autoWidth" : true,
+        dom:"<'row'<'col-sm-4'B><'col-sm-2'f><'col-sm-6 text-right'l>>" +
+        "<'row'<'col-sm-12'tr>>" +
+        "<'row'<'col-sm-5'i><'col-sm-7'p>>"
     });
 
     $('#users').on('click','.delete_user', function (e) {
