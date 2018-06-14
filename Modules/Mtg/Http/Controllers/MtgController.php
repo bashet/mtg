@@ -5,6 +5,7 @@ namespace Modules\Mtg\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\Mtg\Entities\MtgCardSet;
 
 class MtgController extends Controller
 {
@@ -12,9 +13,24 @@ class MtgController extends Controller
      * Display a listing of the resource.
      * @return Response
      */
-    public function index()
-    {
-        return view('mtg::index');
+    public function index(){
+
+        $data = array();
+        $sets = MtgCardSet::select('block', 'name', 'code', 'cardcount')
+            ->where('block', '!=', '')
+            ->where('onlineOnly', 0)
+            ->orderBy('block', 'asc')
+            ->orderBy('name')
+            ->get();
+
+        $data['sets'] = $sets;
+
+        $first_set = $sets->first();
+        $data['first_set'] = $first_set;
+        $cards = $first_set->cards;
+        $data['cards'] = $cards;
+
+        return view('mtg::index', $data);
     }
 
     /**

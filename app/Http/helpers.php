@@ -8,7 +8,7 @@
 
 if( ! function_exists('get_card_select') ){
     function get_card_select($records){
-        $html ='<select id="carouselchoose" class="chosen-select">';
+        $html ='<select id="carouselchoose" class="form-control chosen-select">';
 
         $block = '';
         $lastblock = '';
