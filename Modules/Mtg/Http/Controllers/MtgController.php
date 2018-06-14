@@ -91,7 +91,7 @@ class MtgController extends Controller
         $set = MtgCardSet::where('code', '=', $code)->get()->first();
         $cards = $set->cards;
 
-        $icon = '<i class="ss ss-'. $set->code .' ss-grad ss-3x"></i>';
+        $icon = '<i class="ss ss-'. strtolower($set->code) .' ss-grad ss-3x"></i>';
         $available_cards = '<em class="h4 text-lt">'. $set->cards->sum('qty').'</em>';
         $total_cards = '<em class="h4 text-lt">' . $set->cards->count().'</em>';
 
