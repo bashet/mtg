@@ -34,8 +34,19 @@ $(function () {
         });
 
 
-        $('#acards').click(function (e) {
+        $('#carouselExampleControls').on('click', '.add_to_cart', function (e) {
             e.preventDefault();
+            let data = $(this).data();
+            axios.post('/mtg/add-to-cart',{
+               card_id : data.id
+            }).then((result) => {
+                if( ! result.data.error){
+                    swal('One item has been added to cart!', '', 'success');
+                }else{
+                    swal('Something went wrong, please try again later!', '', 'error');
+                }
+            });
+
         });
     });
 });

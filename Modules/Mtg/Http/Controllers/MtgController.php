@@ -94,8 +94,12 @@ class MtgController extends Controller
         return [
             'carousel' => view('mtg::carousel', ['cards' => $cards])->render(),
             'icon' => strtolower($set->code),
-            'available_cards' => $set->cards->sum('qty'),
-            'total_cards' => $set->cards->count()
+            'available_cards' => $cards->sum('qty'),
+            'total_cards' => $cards->count()
         ];
+    }
+
+    public function add_to_cart(Request $request){
+        return ['error' => false];
     }
 }
