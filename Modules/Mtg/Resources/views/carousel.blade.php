@@ -1,7 +1,7 @@
 <div class="carousel-inner">
     @if($cards->count() && $i = 1)
         @foreach($cards as $card)
-            <div class="carousel-item {{$i == 1 ? 'active' : ''}}">
+            <div data-id="{{$card->id}}" class="carousel-item {{$i == 1 ? 'active' : ''}}">
                 <div class="row">
                     <div class="col-sm-6">
                         <h3 class="card-title text-white">{{$card->cardName}}</h3>

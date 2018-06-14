@@ -91,16 +91,11 @@ class MtgController extends Controller
         $set = MtgCardSet::where('code', '=', $code)->get()->first();
         $cards = $set->cards;
 
-        $icon = '<i class="ss ss-'. strtolower($set->code) .' ss-grad ss-3x"></i>';
-        $available_cards = '<em class="h4 text-lt">'. $set->cards->sum('qty').'</em>';
-        $total_cards = '<em class="h4 text-lt">' . $set->cards->count().'</em>';
-
-
         return [
             'carousel' => view('mtg::carousel', ['cards' => $cards])->render(),
-            'icon' => $icon,
-            'available_cards' => $available_cards,
-            'total_cards' => $total_cards
+            'icon' => strtolower($set->code),
+            'available_cards' => $set->cards->sum('qty'),
+            'total_cards' => $set->cards->count()
         ];
     }
 }

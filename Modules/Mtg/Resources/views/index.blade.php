@@ -39,6 +39,13 @@
                         </div>
 
                     </div>
+                    <div class="card-footer text-center">
+                        <div class="btn-group" role="group">
+                            <button id="carousel_prev" class="btn btn-outline-info"><i class="fas fa-arrow-circle-left"></i></button>
+                            <button id="btn_info" class="btn btn-outline-info">1 of {{$first_set->cards->count()}}</button>
+                            <button id="carousel_next" class="btn btn-outline-info"><i class="fas fa-arrow-circle-right"></i></button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
