@@ -16,8 +16,8 @@
                         <div class="col-sm-4">
                             <div class="btn-group fa-pull-right" role="group">
                                 <a id="seticon" href="#" class="btn btn-link"><i class="ss ss-{{strtolower($first_set->code)}} ss-grad ss-3x"></i></a>
-                                <a id="acards" href="#" class="btn btn-link"><em class="h4 text-lt">{{$first_set->cards->sum('qty')}}</em></a>
-                                <a id="tcards" href="#" class="btn btn-link"><em class="h4 text-lt">{{$first_set->cards->count()}}</em></a>
+                                {{--<a id="acards" href="#" class="btn btn-link"><em class="h4 text-lt">{{$first_set->cards->sum('qty')}}</em></a>--}}
+                                {{--<a id="tcards" href="#" class="btn btn-link"><em class="h4 text-lt">{{$first_set->cards->count()}}</em></a>--}}
                             </div>
                         </div>
                         {!! Form::close() !!}
@@ -46,6 +46,7 @@
                             <button id="carousel_next" class="btn btn-outline-info"><i class="fas fa-arrow-circle-right"></i></button>
                         </div>
                     </div>
+                    <input type="hidden" id="total_cards" value="{{$first_set->cards->count()}}">
                 </div>
             </div>
         </div>
