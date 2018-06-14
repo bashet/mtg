@@ -5,6 +5,7 @@ namespace Modules\Mtg\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\Mtg\Entities\MtgCard;
 use Modules\Mtg\Entities\MtgCardSet;
 
 class MtgController extends Controller
@@ -84,5 +85,22 @@ class MtgController extends Controller
      */
     public function destroy()
     {
+    }
+
+    public function get_card_set_by_code($code){
+        $set = MtgCardSet::where('code', '=', $code)->get()->first();
+        $cards = $set->cards;
+
+        $icon = '<i class="ss ss-'. $set->code .' ss-grad ss-3x"></i>';
+        $available_cards = '<em class="h4 text-lt">'. $set->cards->sum('qty').'</em>';
+        $total_cards = '<em class="h4 text-lt">' . $set->cards->count().'</em>';
+
+
+        return [
+            'carousel' => view('mtg::carousel', ['cards' => $cards])->render(),
+            'icon' => $icon,
+            'available_cards' => $available_cards,
+            'total_cards' => $total_cards
+        ];
     }
 }

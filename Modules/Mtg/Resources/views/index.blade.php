@@ -6,9 +6,14 @@
             $('.chosen-select').chosen();
 
             $('#carouselchoose').change(function (e) {
-                axios.get('/mtg/get_card_set_by_code/' + this.value)
+                $.LoadingOverlay('show');
+                axios.get('/mtg/get-card-set/' + this.value)
                     .then((result) => {
-
+                        $('#carouselExampleControls').html(result.data.carousel);
+                        $('#seticon').html(result.data.icon);
+                        $('#acards').html(result.data.available_cards);
+                        $('#tcards').html(result.data.total_cards);
+                        $.LoadingOverlay('hide');
                     });
             });
         });
@@ -27,15 +32,28 @@
                         <div class="col-sm-4">
                             <div class="btn-group fa-pull-right" role="group">
                                 <a id="seticon" href="#" class="btn btn-link"><i class="ss ss-{{$first_set->code}} ss-grad ss-3x"></i></a>
-                                <a id="acards" href="#" class="btn btn-link">{{$first_set->cards->sum('qty')}}</a>
-                                <a id="tcards" href="#" class="btn btn-link">{{$first_set->cards->count()}}</a>
+                                <a id="acards" href="#" class="btn btn-link"><em class="h4 text-lt">{{$first_set->cards->sum('qty')}}</em></a>
+                                <a id="tcards" href="#" class="btn btn-link"><em class="h4 text-lt">{{$first_set->cards->count()}}</em></a>
                             </div>
                         </div>
                         {!! Form::close() !!}
                     </div>
 
                     <div class="card-body bg-dark">
-                        @include('mtg::carousel', ['cards' => $cards])
+                        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+
+                            @include('mtg::carousel', ['cards' => $cards])
+
+                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+
                     </div>
                 </div>
             </div>
