@@ -32,7 +32,8 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        @can('see_all_users')
+                        @can('see_all_users', \App\User::class)
+                            <li class="nav-item"><a href="{{url('user')}}" class="nav-link"><i class="fas fa-users"></i> Users</a></li>
                         @endcan
                     </ul>
 
@@ -71,7 +72,7 @@
         </nav>
 
         <main class="py-4">
-            @include('flash::message')
+            <div class="container">@include('flash::message')</div>
             @yield('content')
         </main>
     </div>
