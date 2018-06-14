@@ -70,8 +70,14 @@
                 </div>
             </div>
         </nav>
+        {{--<nav aria-label="breadcrumb">--}}
+            {{--<ol class="breadcrumb pl-5">--}}
+                {{--You are here : <li class="breadcrumb-item active" aria-current="page"> Home</li>--}}
+            {{--</ol>--}}
+        {{--</nav>--}}
 
         <main class="py-4">
+
             <div class="container">@include('flash::message')</div>
             @yield('content')
         </main>

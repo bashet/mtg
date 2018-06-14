@@ -1,5 +1,4 @@
 $(function () {
-    //$(".select2").select2();
-
+    $('#role_id').chosen();
     $('.switch').checkboxpicker();
 });

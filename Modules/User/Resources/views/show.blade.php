@@ -1,4 +1,4 @@
-@extends('layouts.profile')
+@extends('layouts.app')
 
 @section('content')
     <section id="delivery_address" class="card">
