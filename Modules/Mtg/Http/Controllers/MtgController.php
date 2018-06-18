@@ -129,6 +129,19 @@ class MtgController extends Controller
     }
 
     public function show_cart(){
-        return 'cart is showing';
+        $data = array();
+        $cart = session('cart');
+        $data['cart'] = $cart;
+
+        return view('mtg::cart', $data);
+    }
+
+    public function checkout(){
+        $data = array();
+        return view('mtg::checkout', $data);
+    }
+
+    public function submit_checkout(Request $request){
+        return 'Thank you';
     }
 }

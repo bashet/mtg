@@ -26,3 +26,11 @@ if( ! function_exists('get_cart_items_quantity') ){
         return $total;
     }
 }
+
+if( ! function_exists('get_card_info_by_id') ){
+    function get_card_info_by_id($id){
+        $card = \Modules\Mtg\Entities\MtgCard::find($id);
+
+        return $card;
+    }
+}

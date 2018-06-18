@@ -7,4 +7,6 @@ Route::group(['middleware' => 'web', 'prefix' => 'mtg', 'namespace' => 'Modules\
     Route::post('add-to-cart', 'MtgController@add_to_cart');
 
     Route::get('show-cart', 'MtgController@show_cart');
+    Route::get('checkout', 'MtgController@checkout');
+    Route::post('checkout', 'MtgController@submit_checkout');
 });
