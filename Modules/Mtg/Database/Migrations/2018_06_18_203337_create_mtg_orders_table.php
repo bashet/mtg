@@ -29,6 +29,7 @@ class CreateMtgOrdersTable extends Migration
             $table->float('shipping_cost')->default(0);
             $table->float('handling_cost')->default(0);
             $table->float('discount')->default(0);
+            $table->float('vat_percentage')->default(0);
             $table->timestamps();
         });
     }

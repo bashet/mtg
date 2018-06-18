@@ -40,6 +40,8 @@ $(function () {
         }
     });
 
+    //$("input[type='number']").InputSpinner();
+
     $('#postcode_lookup').getAddress({
         api_key: postcode_api,
         output_fields:{

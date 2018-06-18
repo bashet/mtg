@@ -18,7 +18,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-4 pr-lg-1">
+        <div class="col-md-5 pr-lg-1">
             <section class="card">
                 <div class="card-header">
                     <h3 class="card-title">Cart Info</h3>
@@ -28,7 +28,7 @@
                 </div>
             </section>
         </div>
-        <div class="col-md-8 pl-lg-1">
+        <div class="col-md-7 pl-lg-1">
             <section class="card">
                 <div class="card-header">
                     <h3 class="card-title">Checkout</h3>

@@ -15,7 +15,7 @@
                 <tr>
                     <td>{{$card->cardName}}</td>
                     <td class="text-center">{{number_format($card->cardPrice, 2)}}</td>
-                    <td class="text-center">{{$quantity}}</td>
+                    <td class="text-center"><input type="number" value="{{$quantity}}" class="form-control text-center"></td>
                     <td class="text-center">{{number_format($card->cardPrice * $quantity, 2)}}</td>
                 </tr>
                 @php($total = $total + ($card->cardPrice * $quantity))
