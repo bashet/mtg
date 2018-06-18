@@ -40,7 +40,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link"><i class="fas fa-shopping-cart"></i> <span id="cart_indicator">{{get_cart_items_quantity()}}</span></a>
+                            <a class="nav-link" href="{{url('mtg/show-cart')}}"><i class="fas fa-shopping-cart"></i> Basket (<span id="cart_indicator">{{get_cart_items_quantity()}}</span>)</a>
                         </li>
                         <!-- Authentication Links -->
                         @guest

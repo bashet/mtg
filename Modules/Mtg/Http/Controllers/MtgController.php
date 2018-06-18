@@ -127,4 +127,8 @@ class MtgController extends Controller
 
         return ['error' => $error, 'items' => $cart->sum() ];
     }
+
+    public function show_cart(){
+        return 'cart is showing';
+    }
 }

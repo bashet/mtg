@@ -42,7 +42,22 @@ $(function () {
             }).then((result) => {
                 if( ! result.data.error){
                     $('#cart_indicator').html(result.data.items);
-                    swal('One item has been added to cart!', '', 'success');
+
+                    swal({
+                        title: 'Shopping cart has been updated!',
+                        text: "",
+                        type: 'success',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#972edd',
+                        cancelButtonText: 'Continue Shopping',
+                        confirmButtonText: 'Go To Checkout'
+                    }).then((result) => {
+                        if (result.value) {
+                            window.location.href = '/mtg/show-cart'
+                        }
+                    })
+
                 }else{
                     swal('Something went wrong, please try again later!', '', 'error');
                 }
