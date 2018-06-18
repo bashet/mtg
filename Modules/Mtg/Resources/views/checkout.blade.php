@@ -6,9 +6,11 @@
 
 @push('scripts')
     <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://getaddress.io/js/jquery.getAddress-2.0.1.min.js"></script>
     <script src="{{url(Module::asset('mtg:js/checkout.js'))}}"></script>
 
     <script>
+        const postcode_api = '{{env('postcode_api_key', '3Ihph0lYAU6P1llsphU68Q5211')}}';
         const strip_api = '{{env('STRIPE_KEY')}}';
     </script>
 @endpush
@@ -72,6 +74,12 @@
                         </li>
                         <li class="list-group-item">
                             <h3><i class="fas fa-address-card"></i> Address</h3>
+                            @if(env('postcode_api_key'))
+                                <div class="form-group row">
+                                    <label class="col-md-3 text-md-right">Address Lookup</label>
+                                    <div id="postcode_lookup" class="col-md-8"></div>
+                                </div>
+                            @endif
                             <div class="form-group row">
                                 {!! Form::label('add_line_1', 'Address Line 1*', ['class' => 'col-md-3 text-md-right']) !!}
                                 <div class="col-md-8">

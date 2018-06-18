@@ -40,6 +40,18 @@ $(function () {
         }
     });
 
+    $('#postcode_lookup').getAddress({
+        api_key: postcode_api,
+        output_fields:{
+            line_1: '#add_line_1',
+            line_2: '#add_line_2',
+            line_3: '#add_line_3',
+            post_town: '#city',
+            county: '#county',
+            postcode: '#postcode'
+        }
+    });
+
 
     $('#frm_checkout').validate({
         highlight: function(element) {
