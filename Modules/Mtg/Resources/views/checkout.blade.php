@@ -135,6 +135,7 @@
                         </li>
                     </ul>
                 </div>
+                {!! Form::hidden('amount', get_cart_amount(), ['id' => 'amount']) !!}
                 {!! Form::close() !!}
                 <div class="card-footer text-center">
                     <button id="btn_pay" class="btn btn-outline-primary btn-lg">Pay Now</button>

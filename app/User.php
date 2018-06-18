@@ -99,4 +99,8 @@ class User extends Authenticatable
         return $data;
     }
 
+    public function addresses(){
+        return $this->hasMany('Modules\User\Entities\UserAddress');
+    }
+
 }

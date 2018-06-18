@@ -131,6 +131,13 @@ class MtgController extends Controller
     public function show_cart(){
         $data = array();
         $cart = session('cart');
+
+        if( ! $cart ){
+            flash()->error('Cart is empty!')->important();
+            alert()->error('Cart is empty!')->persistent('Close');
+            return redirect('/mtg');
+        }
+
         $data['cart'] = $cart;
 
         return view('mtg::cart', $data);
@@ -149,6 +156,8 @@ class MtgController extends Controller
     }
 
     public function submit_checkout(Request $request){
+        return $request->input();
+
         return 'Thank you';
     }
 }

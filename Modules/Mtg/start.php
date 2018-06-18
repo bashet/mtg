@@ -34,3 +34,15 @@ if( ! function_exists('get_card_info_by_id') ){
         return $card;
     }
 }
+
+if( ! function_exists('get_cart_amount') ){
+    function get_cart_amount(){
+        $cart = session('cart');
+        $total = 0;
+        if($cart){
+            return $cart->sum();
+        }
+
+        return $total;
+    }
+}
