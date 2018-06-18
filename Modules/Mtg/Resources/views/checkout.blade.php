@@ -1,5 +1,17 @@
 @extends('layouts.app')
 
+@push('style')
+    <link rel="stylesheet" href="{{url(Module::asset('mtg:css/stripe.css'))}}">
+@endpush
+
+@push('scripts')
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="{{url(Module::asset('mtg:js/checkout.js'))}}"></script>
+
+    <script>
+        const strip_api = '{{env('STRIPE_KEY')}}';
+    </script>
+@endpush
 
 @section('content')
 <div class="container">
@@ -7,7 +19,7 @@
         <div class="card-header">
             <h3 class="card-title">Checkout</h3>
         </div>
-        {!! Form::open(['id' => 'frm_create_user_account', 'url' => 'mtg/checkout']) !!}
+        {!! Form::open(['id' => 'frm_checkout', 'url' => 'mtg/checkout']) !!}
         <div class="card-block">
             <ul class="list-group">
                 <li class="list-group-item">
@@ -85,13 +97,21 @@
                 </li>
                 <li class="list-group-item">
                     <h3><i class="fas fa-credit-card"></i> Payment</h3>
+                    <div class="form-group row">
+                        {!! Form::label('', 'Enter Card details', ['class' => 'col-sm-3 label-control text-xs-right']) !!}
+                        <div class="col-sm-7">
+                            <div id="card-element"></div>
+                            <div id="card-errors" role="alert"></div>
+                        </div>
+                    </div>
                 </li>
             </ul>
         </div>
-        <div class="card-footer text-center">
-            <button type="submit" class="btn btn-outline-primary btn-lg">Submit</button>
-        </div>
+        {!! Form::hidden('amount', 50.00, ['id' => 'amount']) !!}
         {!! Form::close() !!}
+        <div class="card-footer text-center">
+            <button id="btn_pay" class="btn btn-outline-primary btn-lg">Submit</button>
+        </div>
     </section>
 </div>
 @endsection

@@ -6,13 +6,13 @@
  */
 
 require('./bootstrap');
-window.axios = require('axios');
 window.moment = require('moment');
 window.swal = require('sweetalert2');
 require('jquery-form');
 require('gasparesganga-jquery-loading-overlay');
 require('chosen-js');
 require('jquery-validation');
+require('bootstrap-validate');
 require('bootstrap-checkbox');
 require('bootstrap-datepicker');
 require('@fortawesome/fontawesome');
@@ -35,5 +35,23 @@ require('@fortawesome/fontawesome-free-brands');
 //     el: '#app'
 // });
 
-// let token = document.head.querySelector('meta[name="csrf-token"]');
-// window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+function valid_this_form(MyForm) {
+    $(MyForm).validate({
+        ignore: ":hidden:not(.chosen-select)",
+        highlight: function(element) {
+            $(element).addClass('is-invalid').removeClass('is-valid');
+        },
+        unhighlight: function(element) {
+            $(element).removeClass('is-invalid').addClass('is-valid');
+        },
+        errorElement: 'div',
+        errorClass: 'invalid-feedback',
+        errorPlacement: function(error, element) {
+            if(element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+}
