@@ -138,6 +138,13 @@ class MtgController extends Controller
 
     public function checkout(){
         $data = array();
+        $cart = session('cart');
+        $data['cart'] = $cart;
+        $user = '';
+        if(auth()->user()){
+            $user = auth()->user();
+        }
+        $data['user'] = $user;
         return view('mtg::checkout', $data);
     }
 

@@ -1,12 +1,12 @@
 $(function () {
-    // Create a Stripe client.
+// Create a Stripe client.
     let stripe = Stripe(strip_api);
 
-// Create an instance of Elements.
+    // Create an instance of Elements.
     let elements = stripe.elements();
 
-// Custom styling can be passed to options when creating an Element.
-// (Note that this demo uses a wider set of styles than the guide below.)
+    // Custom styling can be passed to options when creating an Element.
+    // (Note that this demo uses a wider set of styles than the guide below.)
     let style = {
         base: {
             color: '#32325d',
@@ -24,13 +24,13 @@ $(function () {
         }
     };
 
-// Create an instance of the card Element.
+    // Create an instance of the card Element.
     let card = elements.create('card', {style: style});
 
-// Add an instance of the card Element into the `card-element` <div>.
+    // Add an instance of the card Element into the `card-element` <div>.
     card.mount('#card-element');
 
-// Handle real-time validation errors from the card Element.
+    // Handle real-time validation errors from the card Element.
     card.addEventListener('change', function(event) {
         let displayError = document.getElementById('card-errors');
         if (event.error) {
@@ -69,20 +69,21 @@ $(function () {
         let amount = $('#amount').val();
 
         swal({
-                title: "Are You Sure ?",
-                text: 'You are about to pay £' + amount + ' toward MTG Trader!',
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes, Proceed!",
-                showLoaderOnConfirm: true,
-                closeOnConfirm: false
-            },
-            function(){
+            title: 'Are You Sure ?',
+            type: 'warning',
+            html: 'You are about to pay £' + amount + ' to MTG Trader!',
+            showCloseButton: true,
+            showCancelButton: true,
+            focusConfirm: false,
+            confirmButtonText: 'Yes, Proceed!',
+            cancelButtonText: 'Cancel',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+        }).then(function (result) {
+            if(result.value){
                 $('#frm_checkout').submit();
             }
-        );
-
+        });
     });
 
 
@@ -111,13 +112,12 @@ $(function () {
 
                         if(result.err){
                             swal(result.msg, '', 'error');
-                        }else{window.location.href = 'mtg/thank-you';
+                        }else{
+                            //window.location.href = 'mtg/thank-you';
                         }
                     }
                 });
             }
         });
     });
-
-
 });
