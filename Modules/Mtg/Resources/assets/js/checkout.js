@@ -40,12 +40,27 @@ $(function () {
         }
     });
 
-    valid_this_form('#frm_checkout');
+
+    $('#frm_checkout').validate({
+        highlight: function(element) {
+            $(element).addClass('is-invalid').removeClass('is-valid');
+        },
+        unhighlight: function(element) {
+            $(element).removeClass('is-invalid').addClass('is-valid');
+        },
+        errorElement: 'div',
+        errorClass: 'invalid-feedback',
+        errorPlacement: function(error, element) {
+            if(element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
 
     $('#btn_pay').click(function (e) {
         e.preventDefault();
-
-        swal('hgfg');
 
         if( ! $('#frm_checkout').valid() ){
             return false;
@@ -76,7 +91,6 @@ $(function () {
 
         $.LoadingOverlay('show');
 
-        let stripe_token = '';
         stripe.createToken(card).then(function(result) {
             if (result.error) {
                 // Inform the user if there was an error.

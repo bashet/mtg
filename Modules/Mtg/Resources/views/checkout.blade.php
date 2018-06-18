@@ -19,7 +19,7 @@
         <div class="card-header">
             <h3 class="card-title">Checkout</h3>
         </div>
-        {!! Form::open(['id' => 'frm_checkout', 'url' => 'mtg/checkout']) !!}
+        {!! Form::open(['id' => 'frm_checkout', 'url' => url('mtg/checkout')]) !!}
         <div class="card-block">
             <ul class="list-group">
                 <li class="list-group-item">
