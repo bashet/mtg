@@ -100,6 +100,31 @@ class MtgController extends Controller
     }
 
     public function add_to_cart(Request $request){
-        return ['error' => false];
+
+        $error = false;
+        if( ! $cart = $request->session()->get('cart')){
+            $cart = collect();
+        }
+
+
+        $card = MtgCard::find($request->card_id);
+
+        if($card && $card->qty) {
+            // this is valid card and has stock available
+            $key = $card->id;
+            if($cart->has($key)){
+                $value = $cart->get($key) + 1; // get current quantity + 1
+                $cart->put($key, $value);  // set quantity against the card id
+            }else{
+                $cart->put($key, 1); // set quantity=1 against the card id
+            }
+        }else{
+            $error = true;
+        }
+
+        //put the cart back in the session
+        $request->session()->put('cart', $cart);
+
+        return ['error' => $error, 'items' => $cart->sum() ];
     }
 }

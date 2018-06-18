@@ -39,6 +39,9 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link"><i class="fas fa-shopping-cart"></i> <span id="cart_indicator">{{get_cart_items_quantity()}}</span></a>
+                        </li>
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">

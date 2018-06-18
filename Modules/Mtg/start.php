@@ -14,3 +14,15 @@
 if (!app()->routesAreCached()) {
     require __DIR__ . '/Http/routes.php';
 }
+
+if( ! function_exists('get_cart_items_quantity') ){
+    function get_cart_items_quantity(){
+        $cart = session('cart');
+        $total = 0;
+        if($cart){
+            return $cart->sum();
+        }
+
+        return $total;
+    }
+}

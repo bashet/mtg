@@ -41,6 +41,7 @@ $(function () {
                card_id : data.id
             }).then((result) => {
                 if( ! result.data.error){
+                    $('#cart_indicator').html(result.data.items);
                     swal('One item has been added to cart!', '', 'success');
                 }else{
                     swal('Something went wrong, please try again later!', '', 'error');
