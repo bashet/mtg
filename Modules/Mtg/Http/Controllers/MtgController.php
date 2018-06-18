@@ -128,6 +128,33 @@ class MtgController extends Controller
         return ['error' => $error, 'items' => $cart->sum() ];
     }
 
+    public function update_cart(Request $request){
+        $cart = session('cart');
+
+        $card = MtgCard::find($request->card_id);
+
+        $key = $card->id;
+
+        if($request->quantity == 'plus'){
+            if($card && $card->qty) {
+                // this is valid card and has stock available
+                $value = $cart->get($key) + 1; // get current quantity + 1
+            }
+        }else{
+            $value = $cart->get($key) - 1; // get current quantity - 1
+        }
+
+        $cart->put($key, $value);  // set quantity against the card id
+
+        //put the cart back in the session
+        $request->session()->put('cart', $cart);
+
+        return [
+            'items' => $cart->sum(),
+            'cart' => view('mtg::cart-details', ['cart' => $cart])->render()
+        ];
+    }
+
     public function show_cart(){
         $data = array();
         $cart = session('cart');

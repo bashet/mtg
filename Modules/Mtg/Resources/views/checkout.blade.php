@@ -7,6 +7,7 @@
 @push('scripts')
     <script src="https://js.stripe.com/v3/"></script>
     <script src="https://getaddress.io/js/jquery.getAddress-2.0.1.min.js"></script>
+    <script src="{{url(Module::asset('mtg:js/cart.js'))}}"></script>
     <script src="{{url(Module::asset('mtg:js/checkout.js'))}}"></script>
 
     <script>
@@ -18,17 +19,17 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-5 pr-lg-1">
+        <div class="col-md-4 pr-lg-1">
             <section class="card">
                 <div class="card-header">
                     <h3 class="card-title">Cart Info</h3>
                 </div>
-                <div class="card-block">
+                <div id="cart_holder" class="card-block">
                     @include('mtg::cart-details', ['cart' => $cart])
                 </div>
             </section>
         </div>
-        <div class="col-md-7 pl-lg-1">
+        <div class="col-md-8 pl-lg-1">
             <section class="card">
                 <div class="card-header">
                     <h3 class="card-title">Checkout</h3>
