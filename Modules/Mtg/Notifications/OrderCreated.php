@@ -42,9 +42,17 @@ class OrderCreated extends Notification
      * @param mixed $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
-    {
-        return (new MailMessage)->markdown('mtg::email.order-created', ['order' => $this->order]);
+    public function toMail($notifiable){
+
+        $total = 0;
+        foreach ($this->order->items as $item){
+            $total = $total + ($item->quantity * $item->cardPrice);
+        }
+
+        $total = $total + $this->order->shipping_cost;
+        $total = $total + $this->order->handling_cost;
+
+        return (new MailMessage)->markdown('mtg::email.order-created', ['order' => $this->order, 'total' => $total]);
 
     }
 
