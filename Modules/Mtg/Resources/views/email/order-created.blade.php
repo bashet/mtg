@@ -1,5 +1,4 @@
 @component('mail::message')
-
     {{-- Body --}}
     @component('mail::table')
         | Item       | Unit Price         | Quantity  |  Total
