@@ -6,7 +6,8 @@
     "active": 1,
     "order": 0,
     "providers": [
-        "Modules\\Mtg\\Providers\\MtgServiceProvider"
+        "Modules\\Mtg\\Providers\\MtgServiceProvider",
+        "Modules\\Mtg\\Providers\\AuthServiceProvider"
     ],
     "aliases": {},
     "files": [

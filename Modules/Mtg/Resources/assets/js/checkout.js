@@ -130,6 +130,7 @@ $(function () {
                         }
                     },
                     error: function (result) {
+                        $.LoadingOverlay('hide');
                         console.log(result);
                         let errors = result.responseJSON.errors;
                         if(errors.email && errors.email.length){

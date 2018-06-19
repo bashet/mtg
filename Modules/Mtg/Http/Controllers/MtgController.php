@@ -42,59 +42,6 @@ class MtgController extends Controller
         return view('mtg::index', $data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Response
-     */
-    public function create()
-    {
-        return view('mtg::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-    }
-
-    /**
-     * Show the specified resource.
-     * @return Response
-     */
-    public function show()
-    {
-        return view('mtg::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @return Response
-     */
-    public function edit()
-    {
-        return view('mtg::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function update(Request $request)
-    {
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @return Response
-     */
-    public function destroy()
-    {
-    }
-
     public function get_card_set_by_code($code){
         $set = MtgCardSet::where('code', '=', $code)->get()->first();
         $cards = $set->cards;
@@ -272,11 +219,14 @@ class MtgController extends Controller
             // save order details
             foreach ($cart as $card_id => $quantity){
                 $card = get_card_info_by_id($card_id);
-                $details = new MtgOrderDetails;
-                $details->card_id = $card->id;
-                $details->price = $card->cardPrice;
-                $details->quantity = $quantity;
-                $order->items()->save($details);
+                // TODO:: check the stock quantity more carefully
+                if($card->qty){
+                    $details = new MtgOrderDetails;
+                    $details->card_id = $card->id;
+                    $details->price = $card->cardPrice;
+                    $details->quantity = $quantity;
+                    $order->items()->save($details);
+                }
             }
         }
 
@@ -364,5 +314,19 @@ class MtgController extends Controller
         //$order->notify(new OrderCreated($order));
 
         return view('mtg::thank-you', ['order' => $order]);
+    }
+
+    public function orders(){
+        $data = array();
+
+        $user = auth()->user();
+
+        //$orders = $user->orders();
+
+        $orders = MtgOrder::all();
+
+        $data['orders'] = $orders;
+
+        return view('mtg::order.index', $data);
     }
 }
