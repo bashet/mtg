@@ -1,29 +1,16 @@
-@component('mail::layout')
-    {{-- Header --}}
-    @slot('header')
-        @component('mail::header', ['url' => config('app.url')])
-            Header Title
-        @endcomponent
-    @endslot
+@component('mail::message')
 
     {{-- Body --}}
-    This is our main message {{ $order }}
+    @component('mail::table')
+        | Item       | Unit Price         | Quantity  |  Total
+        | ------------- |:-------------:| --------:| ------:|
+        @foreach($order->items as $item)
+            | {{$item->card->cardName}}     | {{number_format($item->card->cardPrice, 2)}}      | {{$item->quantity}}      |    {{number_format($item->card->cardPrice * $item->quantity, 2)}} |
+        @endforeach
+    @endcomponent
 
-    {{-- Subcopy --}}
-    @isset($subcopy)
-        @slot('subcopy')
-            @component('mail::subcopy')
-                {{ $subcopy }}
-            @endcomponent
-        @endslot
-    @endisset
 
-    {{-- Footer --}}
-    @slot('footer')
-        @component('mail::footer')
-            Thanks,<br>
-            © {{ date('Y') }} {{ config('app.name') }}
-        @endcomponent
-    @endslot
+    Thanks,
+    {{ config('app.name') }}
 @endcomponent
 

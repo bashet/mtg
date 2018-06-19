@@ -361,6 +361,8 @@ class MtgController extends Controller
     public function thank_you($order_id){
         $order = MtgOrder::find($order_id);
 
+        $order->notify(new OrderCreated($order));
+
         return view('mtg::thank-you', ['order' => $order]);
     }
 }
