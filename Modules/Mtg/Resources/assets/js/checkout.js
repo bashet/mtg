@@ -126,7 +126,7 @@ $(function () {
                          if(result.err){
                             swal(result.msg, '', 'error');
                         }else{
-                            window.location.href = 'mtg/thank-you/' + result.order_id;
+                            window.location.href = '/mtg/thank-you/' + result.order_id;
                         }
                     },
                     error: function (result) {

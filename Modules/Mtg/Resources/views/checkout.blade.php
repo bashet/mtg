@@ -75,7 +75,12 @@
                 <div class="card-block">
                     <ul class="list-group">
                         <li class="list-group-item">
-                            <h3><i class="fas fa-user"></i> Personal Information <a class="fa-pull-right" href="{{url('login')}}">Login <i class="fas fa-sign-in-alt"></i></a></h3>
+                            <h3>
+                                <i class="fas fa-user"></i> Personal Information
+                                @if(auth()->guest())
+                                    <a class="fa-pull-right" href="{{url('login')}}">Login <i class="fas fa-sign-in-alt"></i></a>
+                                @endif
+                            </h3>
                             <div id="personal-info">
 
                                 <div class="form-group row">
@@ -90,16 +95,20 @@
                                         {!! Form::text('phone_number', $user ? $user->phone_number : '', ['class' => 'form-control', 'required' => 'required']) !!}
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    {!! Form::label('email', 'Email*', ['class' => 'col-md-3 text-md-right']) !!}
-                                    <div class="col-md-8">
-                                        {!! Form::email('email', $user ? $user->email : '', ['class' => 'form-control', 'required' => 'required']) !!}
-                                    </div>
-                                </div>
+
                                 @if(auth()->guest())
+
+                                    <div class="form-group row">
+                                        {!! Form::label('email', 'Email*', ['class' => 'col-md-3 text-md-right']) !!}
+                                        <div class="col-md-8">
+                                            {!! Form::email('email', $user ? $user->email : '', ['class' => 'form-control', 'required' => 'required']) !!}
+                                        </div>
+                                    </div>
+
                                     <div class="form-group text-center">
                                         <h5>Create an account (optional)<br>And save time on your next order!</h5>
                                     </div>
+
                                     <div class="form-group row">
                                         {!! Form::label('password', 'Password', ['class' => 'col-md-3 text-md-right']) !!}
                                         <div class="col-md-8">
@@ -121,43 +130,43 @@
                             <div class="form-group row">
                                 {!! Form::label('add_line_1', 'Address Line 1*', ['class' => 'col-md-3 text-md-right']) !!}
                                 <div class="col-md-8">
-                                    {!! Form::text('add_line_1', '', ['class' => 'form-control', 'required' => 'required']) !!}
+                                    {!! Form::text('add_line_1', $user && $user->addresses->count() ? $user->addresses->last()->add_line_1 : '', ['class' => 'form-control', 'required' => 'required']) !!}
                                 </div>
                             </div>
                             <div class="form-group row">
                                 {!! Form::label('add_line_2', 'Address Line 2', ['class' => 'col-md-3 text-md-right']) !!}
                                 <div class="col-md-8">
-                                    {!! Form::text('add_line_2', '', ['class' => 'form-control']) !!}
+                                    {!! Form::text('add_line_2', $user && $user->addresses->count() ? $user->addresses->last()->add_line_2 : '', ['class' => 'form-control']) !!}
                                 </div>
                             </div>
                             <div class="form-group row">
                                 {!! Form::label('add_line_3', 'Address Line 3', ['class' => 'col-md-3 text-md-right']) !!}
                                 <div class="col-md-8">
-                                    {!! Form::text('add_line_3', '', ['class' => 'form-control']) !!}
+                                    {!! Form::text('add_line_3', $user && $user->addresses->count() ? $user->addresses->last()->add_line_3 : '', ['class' => 'form-control']) !!}
                                 </div>
                             </div>
                             <div class="form-group row">
                                 {!! Form::label('city', 'City*', ['class' => 'col-md-3 text-md-right']) !!}
                                 <div class="col-md-8">
-                                    {!! Form::text('city', '', ['class' => 'form-control', 'required' => 'required']) !!}
+                                    {!! Form::text('city', $user && $user->addresses->count() ? $user->addresses->last()->city : '', ['class' => 'form-control', 'required' => 'required']) !!}
                                 </div>
                             </div>
                             <div class="form-group row">
                                 {!! Form::label('county', 'County', ['class' => 'col-md-3 text-md-right']) !!}
                                 <div class="col-md-8">
-                                    {!! Form::text('county', '', ['class' => 'form-control']) !!}
+                                    {!! Form::text('county', $user && $user->addresses->count() ? $user->addresses->last()->county : '', ['class' => 'form-control']) !!}
                                 </div>
                             </div>
                             <div class="form-group row">
                                 {!! Form::label('postcode', 'Postcode*', ['class' => 'col-md-3 text-md-right']) !!}
                                 <div class="col-md-8">
-                                    {!! Form::text('postcode', '', ['class' => 'form-control', 'required' => 'required']) !!}
+                                    {!! Form::text('postcode', $user && $user->addresses->count() ? $user->addresses->last()->postcode : '', ['class' => 'form-control', 'required' => 'required']) !!}
                                 </div>
                             </div>
                             <div class="form-group row">
                                 {!! Form::label('note', 'Note', ['class' => 'col-md-3 text-md-right']) !!}
                                 <div class="col-md-8">
-                                    {!! Form::textarea('note', '', ['class' => 'form-control', 'rows' => 2]) !!}
+                                    {!! Form::textarea('note', $user && $user->addresses->count() ? $user->addresses->last()->note : '', ['class' => 'form-control', 'rows' => 2]) !!}
                                 </div>
                             </div>
                         </li>

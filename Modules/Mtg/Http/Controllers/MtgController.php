@@ -257,7 +257,7 @@ class MtgController extends Controller
         $order = new MtgOrder;
         $order->name = $request->name;
         $order->phone_number = $request->phone_number;
-        $order->email = $request->email;
+        $order->email = $user ? $user-> email : $request->email;
         $order->add_line_1 = $request->add_line_1;
         $order->add_line_2 = $request->add_line_2;
         $order->add_line_3 = $request->add_line_3;
@@ -305,7 +305,10 @@ class MtgController extends Controller
 
         // add shipping cost
         if(env('shipping_cost', 0)){
-            $amount = $amount + env('shipping_cost_value');
+            $shipping_cost = env('shipping_cost_value');
+            $amount = $amount + $shipping_cost;
+            $order->shipping_cost = $shipping_cost;
+            $order->save();
         }
 
         // convert to penny fot stripe
@@ -315,6 +318,9 @@ class MtgController extends Controller
         if(env('card_handling_fee', 0)){
             $fee = ($amount *1.4/100) + 20;  // 1.4% + 20p
             $amount = $amount + $fee;
+
+            $order->handling_cost = number_format($fee/100, 2);
+            $order->save();
         }
 
         // now it's time to process the payment
@@ -322,7 +328,7 @@ class MtgController extends Controller
 
         try{
             $charge = Stripe\Charge::create([
-                'amount' => $amount, // convert into coins/pens,
+                'amount' => round($amount), // remove decimal
                 'currency' => 'gbp',
                 'description' => $order->id,
                 'source' => $request->stripe_token,

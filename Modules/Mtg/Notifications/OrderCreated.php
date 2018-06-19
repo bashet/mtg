@@ -44,10 +44,7 @@ class OrderCreated extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', 'https://laravel.com')
-                    ->line('Thank you for using our application!');
+        return (new MailMessage)->markdown('mtg::email.order-created', ['order' => $this->order]);
 
     }
 
