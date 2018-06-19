@@ -14,7 +14,7 @@
                 @include('mtg::cart-details', ['cart' => $cart])
             </div>
             <div id="cart_footer" class="card-footer text-center">
-                @if(get_cart_amount() > env('minimum', 0) )
+                @if(get_cart_amount() >= env('minimum', 0) )
                     <a href="{{url('mtg/checkout')}}" class="btn btn-outline-info">Proceed to Checkout</a>
                 @else
                     <div class="alert alert-danger">

@@ -119,14 +119,41 @@ $(function () {
                     data: { stripe_token: result.token.id },
                     success: function (result) {
                         // payment has been taken
-
+                        //console.log(result);
                         $.LoadingOverlay('hide');
 
 
-                        if(result.err){
+                         if(result.err){
                             swal(result.msg, '', 'error');
                         }else{
-                            //window.location.href = 'mtg/thank-you';
+                            window.location.href = 'mtg/thank-you/' + result.order_id;
+                        }
+                    },
+                    error: function (result) {
+                        console.log(result);
+                        let errors = result.responseJSON.errors;
+                        if(errors.email && errors.email.length){
+                            swal({
+                                title: 'Seems like you have an account with us!',
+                                type: 'warning',
+                                showCloseButton: true,
+                                showCancelButton: true,
+                                focusConfirm: false,
+                                confirmButtonText: 'Login',
+                                cancelButtonText: 'Reset Password',
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                            }).then(function (result) {
+                                if(result.value){
+                                    window.location.href = '/login';
+                                }else {
+                                    window.location.href = '/password/reset';
+                                }
+                            });
+                        }
+
+                        if(errors.password && errors.password.length){
+                            swal(errors.password[0], '', 'warning');
                         }
                     }
                 });

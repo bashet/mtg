@@ -10,4 +10,5 @@ Route::group(['middleware' => 'web', 'prefix' => 'mtg', 'namespace' => 'Modules\
     Route::get('show-cart', 'MtgController@show_cart');
     Route::get('checkout', 'MtgController@checkout');
     Route::post('checkout', 'MtgController@submit_checkout');
+    Route::get('thank-you/{order_id}', 'MtgController@thank_you');
 });

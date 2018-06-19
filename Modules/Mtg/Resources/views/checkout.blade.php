@@ -75,7 +75,7 @@
                 <div class="card-block">
                     <ul class="list-group">
                         <li class="list-group-item">
-                            <h3><i class="fas fa-user"></i> Personal Information</h3>
+                            <h3><i class="fas fa-user"></i> Personal Information <a class="fa-pull-right" href="{{url('login')}}">Login <i class="fas fa-sign-in-alt"></i></a></h3>
                             <div id="personal-info">
 
                                 <div class="form-group row">
@@ -103,7 +103,7 @@
                                     <div class="form-group row">
                                         {!! Form::label('password', 'Password', ['class' => 'col-md-3 text-md-right']) !!}
                                         <div class="col-md-8">
-                                            {!! Form::password('password', ['class' => 'form-control']) !!}
+                                            {!! Form::password('password', ['class' => 'form-control', 'pattern' => '.{6,10}']) !!}
                                         </div>
                                     </div>
                                 @endif

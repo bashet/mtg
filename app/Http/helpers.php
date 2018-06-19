@@ -108,3 +108,16 @@ if( ! function_exists('symbol') ){
     }
 }
 
+if( ! function_exists('get_status_id_by_name')){
+    function get_status_id_by_name($name){
+        $id = 0;
+        $status = \App\Status::where('name', '=', $name)->get()->first();
+
+        if($status){
+            $id = $status->id;
+        }
+
+        return $id;
+    }
+}
+

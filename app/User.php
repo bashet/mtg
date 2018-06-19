@@ -100,7 +100,11 @@ class User extends Authenticatable
     }
 
     public function addresses(){
-        return $this->hasMany('Modules\User\Entities\UserAddress');
+        return $this->hasMany('Modules\User\Entities\UserAddress', 'user_id');
+    }
+
+    public function orders(){
+        return $this->hasMany('Modules\Mtg\Entities\MtgOrder', 'user_id');
     }
 
 }

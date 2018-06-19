@@ -2,11 +2,19 @@
 
 namespace Modules\Mtg\Http\Controllers;
 
+use App\Notifications\VerifyUser;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Mtg\Entities\MtgCard;
 use Modules\Mtg\Entities\MtgCardSet;
+use Modules\Mtg\Entities\MtgOrder;
+use Modules\Mtg\Entities\MtgOrderDetails;
+use Modules\Mtg\Entities\MtgOrderStatus;
+use Modules\Mtg\Notifications\OrderCreated;
+use Modules\User\Entities\UserAddress;
+use Stripe;
 
 class MtgController extends Controller
 {
@@ -211,10 +219,142 @@ class MtgController extends Controller
     }
 
     public function submit_checkout(Request $request){
-        return $request->input();
+
+        // check if I need to create an user account
+        if($request->has('password')){
+            // create new user account
+            $request->validate([
+                'name' => 'required|max:255',
+                'email' => 'required|email|max:255|unique:users',
+                'password' => 'required|min:6',
+            ]);
+
+            $user = new User;
+            $user->name = $request->input('name');
+            $user->email = $request->input('email');
+            $user->password = bcrypt($request->input('password'));
+            $user->verify_token = md5(time());
+            $user->active = 1;
+
+            if($user->save()){
+
+                if($request->has('send_email')){
+                    $user->notify(new VerifyUser($user));
+                }
+
+                // attach role
+                $user->roles()->attach(2); // user role id
+
+                // login the user straight way
+                auth()->login($user);
+
+            }
+        }
+
+        $user = auth()->id() ? auth()->user() : '';
+
+        //create order object
+        $order = new MtgOrder;
+        $order->name = $request->name;
+        $order->phone_number = $request->phone_number;
+        $order->email = $request->email;
+        $order->add_line_1 = $request->add_line_1;
+        $order->add_line_2 = $request->add_line_2;
+        $order->add_line_3 = $request->add_line_3;
+        $order->city = $request->city;
+        $order->county = $request->county;
+        $order->postcode = $request->postcode;
+        $order->note = $request->note;
+
+        // save order info
+        if($order->save()){
+            $cart = session('cart');
+            // save order details
+            foreach ($cart as $card_id => $quantity){
+                $card = get_card_info_by_id($card_id);
+                $details = new MtgOrderDetails;
+                $details->card_id = $card->id;
+                $details->price = $card->cardPrice;
+                $details->quantity = $quantity;
+                $order->items()->save($details);
+            }
+        }
+
+        // update order status
+        $order->statuses()->save(new MtgOrderStatus(['status_id' => get_status_id_by_name('New')]));
+
+        // associate with user
+        if($user){
+            $user->orders()->save($order);
+
+            // update new address for user
+            $address = new UserAddress;
+            $address->add_line_1 = $order->add_line_1;
+            $address->add_line_2 = $order->add_line_2;
+            $address->add_line_3 = $order->add_line_3;
+            $address->city = $order->city;
+            $address->county = $order->county;
+            $address->postcode = $order->postcode;
+            $address->note = $order->note;
+            $user->addresses()->save($address);
+        }
 
 
+        // get actual cart amount
+        $amount = get_cart_amount();
 
-        return 'Thank you';
+        // add shipping cost
+        if(env('shipping_cost', 0)){
+            $amount = $amount + env('shipping_cost_value');
+        }
+
+        // convert to penny fot stripe
+        $amount = $amount * 100;
+
+        // handling fee
+        if(env('card_handling_fee', 0)){
+            $fee = ($amount *1.4/100) + 20;  // 1.4% + 20p
+            $amount = $amount + $fee;
+        }
+
+        // now it's time to process the payment
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+
+        try{
+            $charge = Stripe\Charge::create([
+                'amount' => $amount, // convert into coins/pens,
+                'currency' => 'gbp',
+                'description' => $order->id,
+                'source' => $request->stripe_token,
+            ]);
+        } catch (\Exception $e){
+            return array('err' => true, 'msg' => $e->getMessage());
+        }
+
+        if($charge && $charge->paid){
+
+            // destroy the cart
+            $request->session()->put('cart', null);
+
+            $order->paid = true;
+            $order->stripe_ref = $charge->id;
+
+            $order->save();
+
+            // send email notification
+            $order->notify(new OrderCreated($order));
+
+            return ['err' => false, 'order_id' => $order->id];
+
+        }else{
+            return ['err' => true];
+        }
+
+    }
+
+    public function thank_you($order_id){
+        $order = MtgOrder::find($order_id);
+
+        return view('mtg::thank-you', ['order' => $order]);
     }
 }

@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class MtgOrderStatus extends Model
 {
-    protected $fillable = [];
+    protected $fillable = ['order_id', 'status_id'];
 }
