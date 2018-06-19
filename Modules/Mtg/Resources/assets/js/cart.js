@@ -9,7 +9,8 @@ $(function () {
         }).then((result) => {
             $('#cart_indicator').html(result.data.items);
             $('#cart_holder').html(result.data.cart);
-        });
+            $('#cart_footer').html(result.data.next);
+            });
 
     });
 
@@ -22,6 +23,7 @@ $(function () {
         }).then((result) => {
             $('#cart_indicator').html(result.data.items);
             $('#cart_holder').html(result.data.cart);
+            $('#cart_footer').html(result.data.next);
         });
 
     });

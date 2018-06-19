@@ -13,8 +13,14 @@
             <div id="cart_holder" class="card-block">
                 @include('mtg::cart-details', ['cart' => $cart])
             </div>
-            <div class="card-footer text-center">
-                <a href="{{url('mtg/checkout')}}" class="btn btn-outline-info">Proceed to Checkout</a>
+            <div id="cart_footer" class="card-footer text-center">
+                @if(get_cart_amount() > env('minimum', 0) )
+                    <a href="{{url('mtg/checkout')}}" class="btn btn-outline-info">Proceed to Checkout</a>
+                @else
+                    <div class="alert alert-danger">
+                        Minimum order amount must be grater or equal to £{{number_format(env('minimum', 0), 2)}}
+                    </div>
+                @endif
             </div>
         </section>
     </div>

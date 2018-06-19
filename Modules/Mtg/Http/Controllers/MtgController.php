@@ -146,13 +146,36 @@ class MtgController extends Controller
 
         $cart->put($key, $value);  // set quantity against the card id
 
+        $cart = $this->remove_zero_quantity($cart);
+
         //put the cart back in the session
         $request->session()->put('cart', $cart);
 
+        if(get_cart_amount() >= env('minimum', 0)){
+            $next_step = '<a href="'.url('mtg/checkout').'" class="btn btn-outline-info">Proceed to Checkout</a>';
+        }else{
+            $next_step = '<div class="alert alert-danger">';
+            $next_step .= 'Minimum order amount must be grater or equal to £'. number_format(env('minimum', 0), 2);
+            $next_step .= '</div>';
+        }
+
+
         return [
             'items' => $cart->sum(),
-            'cart' => view('mtg::cart-details', ['cart' => $cart])->render()
+            'cart' => view('mtg::cart-details', ['cart' => $cart])->render(),
+            'next' => $next_step
         ];
+    }
+
+    public function remove_zero_quantity($cart){
+        $new_cart = collect();
+        foreach ($cart as $id => $quantity){
+            if($quantity > 0){
+                $new_cart->put($id, $quantity);
+            }
+        }
+
+        return $new_cart;
     }
 
     public function show_cart(){
@@ -171,6 +194,11 @@ class MtgController extends Controller
     }
 
     public function checkout(){
+
+        if(get_cart_amount() < env('minimum', 0)){
+            return redirect('mtg/show-cart');
+        }
+
         $data = array();
         $cart = session('cart');
         $data['cart'] = $cart;
@@ -185,7 +213,7 @@ class MtgController extends Controller
     public function submit_checkout(Request $request){
         return $request->input();
 
-        
+
 
         return 'Thank you';
     }

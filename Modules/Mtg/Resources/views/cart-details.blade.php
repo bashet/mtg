@@ -22,7 +22,6 @@
                             <button data-id="{{$card->id}}" class="btn btn-primary plus"><i class="fas fa-plus-circle"></i></button>
                         </div>
                     </td>
-                    {{--<td class="text-center"><input data-id="{{$card->id}}" type="number" value="{{$quantity}}" class="quantity form-control text-center"></td>--}}
                     <td class="text-center">{{number_format($card->cardPrice * $quantity, 2)}}</td>
                 </tr>
                 @php($total = $total + ($card->cardPrice * $quantity))
