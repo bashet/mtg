@@ -14,10 +14,10 @@ class MtgOrder extends Model
     protected $fillable = [];
 
     public function statuses(){
-        return $this->hasMany('Modules\Mtg\Entities\MtgOrderStatus');
+        return $this->hasMany('Modules\Mtg\Entities\MtgOrderStatus', 'order_id');
     }
 
     public function items(){
-        return $this->hasMany('Modules\Mtg\Entities\MtgOrderDetails');
+        return $this->hasMany('Modules\Mtg\Entities\MtgOrderDetails', 'order_id');
     }
 }
