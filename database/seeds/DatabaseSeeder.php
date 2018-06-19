@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(RolesTableSeeder::class);
+        $this->call(StatusesTableSeeder::class);
 
         if( ! DB::table('users')->where('email', 'a.bashet@gmail.com')->first()){
             DB::table('users')->insert([

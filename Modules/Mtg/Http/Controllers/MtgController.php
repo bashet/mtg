@@ -185,6 +185,8 @@ class MtgController extends Controller
     public function submit_checkout(Request $request){
         return $request->input();
 
+        
+
         return 'Thank you';
     }
 }

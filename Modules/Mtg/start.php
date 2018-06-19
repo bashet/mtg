@@ -40,7 +40,10 @@ if( ! function_exists('get_cart_amount') ){
         $cart = session('cart');
         $total = 0;
         if($cart){
-            return $cart->sum();
+            foreach ($cart as $id => $quantity){
+                $card = get_card_info_by_id($id);
+                $total = $total + ($card->cardPrice * $quantity);
+            }
         }
 
         return $total;
