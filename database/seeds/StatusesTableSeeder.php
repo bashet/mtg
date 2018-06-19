@@ -12,12 +12,12 @@ class StatusesTableSeeder extends Seeder
      */
     public function run()
     {
-        Status::create(['name' => 'New']);
-        Status::create(['name' => 'Processing']);
-        Status::create(['name' => 'Dispatched']);
-        Status::create(['name' => 'Return Requested']);
-        Status::create(['name' => 'Return Processing']);
-        Status::create(['name' => 'Return Completed']);
-        Status::create(['name' => 'Refunded']);
+        Status::firstOrCreate(['name' => 'New']);
+        Status::firstOrCreate(['name' => 'Processing']);
+        Status::firstOrCreate(['name' => 'Dispatched']);
+        Status::firstOrCreate(['name' => 'Return Requested']);
+        Status::firstOrCreate(['name' => 'Return Processing']);
+        Status::firstOrCreate(['name' => 'Return Completed']);
+        Status::firstOrCreate(['name' => 'Refunded']);
     }
 }
